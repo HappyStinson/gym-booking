@@ -15,7 +15,7 @@ namespace GymBooking.Migrations
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(GymBooking.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             var roleStore = new RoleStore<IdentityRole>(context);
             var roleManager = new RoleManager<IdentityRole>(roleStore);
@@ -37,7 +37,14 @@ namespace GymBooking.Migrations
             var email = "admin@Gymbokning.se";
             if (!context.Users.Any(u => u.UserName == email))
             {
-                var user = new ApplicationUser { UserName = email, Email = email };
+                var user = new ApplicationUser
+                {
+                    UserName = email,
+                    Email = email,
+                    FirstName = "Dimitris",
+                    LastName = "Andrikopoulos",
+                    TimeOfRegistration = DateTime.Now
+                };
                 var result = userManager.Create(user, "foobar");
                 if (!result.Succeeded)
                 {
