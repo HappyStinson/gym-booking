@@ -8,7 +8,7 @@
 <h2>Index</h2>
 
 <p>
-  @if (User.Identity.IsAuthenticated)
+  @if (User.IsInRole("Admin"))
   {
     @Html.ActionLink("Create New", "Create")
   }
@@ -48,9 +48,12 @@
             @Html.ActionLink("Details", "Details", new { id=item.Id })
           @if (User.Identity.IsAuthenticated)
           {
+            @Html.ActionLink(" Toogle booking", "BookingToggle", new { id = item.Id })
+          }
+          @if (User.IsInRole("Admin"))
+          {
             @Html.ActionLink("Edit", "Edit", new { id = item.Id })
             @Html.ActionLink(" Delete", "Delete", new { id = item.Id })
-            @Html.ActionLink(" Toogle booking", "BookingToggle", new { id = item.Id })
           }
         </td>
     </tr>
