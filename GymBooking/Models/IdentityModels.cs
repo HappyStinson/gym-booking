@@ -16,6 +16,8 @@ namespace GymBooking.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public virtual DbSet<GymClass> AttendedClasses { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -29,5 +31,7 @@ namespace GymBooking.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<GymClass> GymClasses { get; set; }
     }
 }
