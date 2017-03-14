@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymBooking", "GymBooking\GymBooking.csproj", "{74DFBA42-8C94-4ED7-B76B-DC50550C7AAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74DFBA42-8C94-4ED7-B76B-DC50550C7AAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74DFBA42-8C94-4ED7-B76B-DC50550C7AAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74DFBA42-8C94-4ED7-B76B-DC50550C7AAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74DFBA42-8C94-4ED7-B76B-DC50550C7AAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
