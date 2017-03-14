@@ -17,7 +17,14 @@ namespace GymBooking.Controllers
         // GET: GymClasses
         public ActionResult Index()
         {
-            return View(db.GymClasses.ToList());
+            var gymClassInfo = db.GymClasses
+                .Select(g => new GymClassViewModel()
+                {
+                    IsBooked = g.AttendingMembers.Any(m => m.Email == User.Identity.Name),
+                    GymClass = g
+                }).ToList();
+
+            return View(gymClassInfo);
         }
 
         // GET: GymClasses/Details/5

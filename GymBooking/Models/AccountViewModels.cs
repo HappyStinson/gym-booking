@@ -90,7 +90,6 @@ namespace GymBooking.Models
         [Display(Name = "Full name")]
         public string FullName { get { return FirstName + " " + LastName; } }
 
-        [Display(Name = "Time of registration")]
         public DateTime TimeOfRegistration { get; set; }
     }
 
