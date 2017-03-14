@@ -36,6 +36,7 @@ namespace GymBooking.Controllers
         }
 
         // GET: GymClasses/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -59,6 +60,7 @@ namespace GymBooking.Controllers
         }
 
         // GET: GymClasses/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +92,7 @@ namespace GymBooking.Controllers
         }
 
         // GET: GymClasses/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -115,6 +118,7 @@ namespace GymBooking.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult BookingToggle(int id)
         {
             GymClass currentClass = db.GymClasses.Where(g => g.Id == id).FirstOrDefault();
