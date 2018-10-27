@@ -17,7 +17,14 @@ namespace GymBooking.Controllers
         // GET: GymClasses
         public ActionResult Index()
         {
-            return View(db.GymClasses.ToList());
+            var gymClassInfo = db.GymClasses
+                .Select(g => new GymClassViewModel()
+                {
+                    IsBooked = g.AttendingMembers.Any(m => m.Email == User.Identity.Name),
+                    GymClass = g
+                }).ToList();
+
+            return View(gymClassInfo);
         }
 
         // GET: GymClasses/Details/5
@@ -36,6 +43,7 @@ namespace GymBooking.Controllers
         }
 
         // GET: GymClasses/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -59,6 +67,7 @@ namespace GymBooking.Controllers
         }
 
         // GET: GymClasses/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +99,7 @@ namespace GymBooking.Controllers
         }
 
         // GET: GymClasses/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +122,22 @@ namespace GymBooking.Controllers
             GymClass gymClass = db.GymClasses.Find(id);
             db.GymClasses.Remove(gymClass);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public ActionResult BookingToggle(int id)
+        {
+            GymClass currentClass = db.GymClasses.Where(g => g.Id == id).FirstOrDefault();
+            ApplicationUser currentUser = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+
+            if (currentClass.AttendingMembers.Contains(currentUser))
+                currentClass.AttendingMembers.Remove(currentUser);
+            else
+                currentClass.AttendingMembers.Add(currentUser);
+
+            db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 

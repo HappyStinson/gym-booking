@@ -1,4 +1,5 @@
-﻿@model IEnumerable<GymBooking.Models.GymClass>
+﻿@model IEnumerable<GymBooking.Models.GymClassViewModel>
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Index";
@@ -7,21 +8,24 @@
 <h2>Index</h2>
 
 <p>
+  @if (User.IsInRole("Admin"))
+  {
     @Html.ActionLink("Create New", "Create")
+  }
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.GymClass.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartTime)
+            @Html.DisplayNameFor(model => model.GymClass.StartTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Duration)
+            @Html.DisplayNameFor(model => model.GymClass.Duration)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.GymClass.Description)
         </th>
         <th></th>
     </tr>
@@ -29,21 +33,36 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.GymClass.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StartTime)
+            @Html.DisplayFor(modelItem => item.GymClass.StartTime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Duration)
+            @Html.DisplayFor(modelItem => item.GymClass.Duration)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.GymClass.Description)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Details", "Details", new { id=item.GymClass.Id })
+          @if (User.Identity.IsAuthenticated)
+          {
+              if (item.IsBooked)
+              {
+                @Html.ActionLink(" Unbook", "BookingToggle", new { id = item.GymClass.Id })
+              }
+              else
+              {
+                  @Html.ActionLink(" Book class", "BookingToggle", new { id = item.GymClass.Id })
+              }
+
+          }
+          @if (User.IsInRole("Admin"))
+          {
+            @Html.ActionLink("Edit", "Edit", new { id = item.GymClass.Id })
+            @Html.ActionLink(" Delete", "Delete", new { id = item.GymClass.Id })
+          }
         </td>
     </tr>
 }

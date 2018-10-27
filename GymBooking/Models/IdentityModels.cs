@@ -1,8 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace GymBooking.Models
 {
@@ -17,7 +19,12 @@ namespace GymBooking.Models
             return userIdentity;
         }
 
-        public virtual DbSet<GymClass> AttendedClasses { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FullName { get { return FirstName + " " + LastName; } }
+        public DateTime TimeOfRegistration { get; set; }
+
+        public virtual ICollection<GymClass> AttendedClasses { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
